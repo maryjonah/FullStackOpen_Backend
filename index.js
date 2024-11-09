@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
 let persons = [
     { 
       "id": "1",
@@ -48,6 +50,24 @@ app.delete('/api/persons/:id', (request, response) => {
     persons = persons.filter(person => person.id != personId)
     response.status(204).end()
 })
+
+const generatePersonId = () => {
+    const curMaxId = persons.length > 0 ? Math.max(...persons.map(person => Number(person.id))) : 0
+    return curMaxId + 1
+}
+
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+    const newPerson = {
+        id: generatePersonId(),
+        name: body.name,
+        number: body.number
+    }
+
+    persons = persons.concat(newPerson)
+    response.json(newPerson)
+})
+
 
 const PORT=3001
 app.listen(PORT, () => {
