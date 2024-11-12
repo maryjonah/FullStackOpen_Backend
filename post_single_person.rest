@@ -1,7 +1,0 @@
-POST http://localhost:3001/api/persons
-Content-Type: application/json
-
-{
-    "name": "Ekua Kuukua Kakra Jonah",
-    "number": "246-810-1214"
-}
