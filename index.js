@@ -43,10 +43,17 @@ app.post('/api/persons', (request, response) => {
 
 app.delete('/api/persons/:id', (request, response) => {
     Person.findByIdAndDelete(request.params.id)
-        .then(personId => response.status(204).end())
-        .catch(error => console.log(error.message))
+        .then(result => response.status(204).end())
+        .catch(error => next(error))
 })
 
+
+// middleware handler for error requests
+const errorHandler = (error, request, response, next) => {
+    console.log(error.message)
+    next(error)
+}
+app.use(errorHandler)
 
 const PORT=process.env.PORT
 app.listen(PORT, () => {
