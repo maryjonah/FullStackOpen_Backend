@@ -19,9 +19,9 @@ const personSchema = new mongoose.Schema({
             validator: function(v) {
                 return /^\d{2,3}-\d+$/.test(v)
             },
-            message: "Number must consist of two parts that are separated by -"
+            message: 'Number must consist of two parts that are separated by -'
         },
-        required: true 
+        required: true
     }
 })
 
