@@ -13,7 +13,16 @@ const personSchema = new mongoose.Schema({
         minLength: 5,
         required: true
     },
-    number: String
+    number: {
+        type: String,
+        validate: {
+            validator: function(v) {
+                return /^\d{2,3}-\d+$/.test(v)
+            },
+            message: "Number must consist of two parts that are separated by -"
+        },
+        required: true 
+    }
 })
 
 personSchema.set('toJSON', {
